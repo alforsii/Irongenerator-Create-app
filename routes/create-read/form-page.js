@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../../models/Task');
 
-/* GET form page */
+/* GET Form page */
 router.get('/form', (req, res, next) => {
   res.render('form-views/form');
 });
 
-//Post form page
+//redirection to Task details
+//Post form - redirect to /task-details/:_id page
 router.post('/form-input', (req, res, next) => {
   console.log('the form info: ', req.body);
 
@@ -22,6 +23,8 @@ router.post('/form-input', (req, res, next) => {
   // res.redirect('/form');
 });
 
+//Task list
+///task-list page
 router.get('/task-list', (req, res, next) => {
   Task.find().then(tasksFromDB => {
     // console.log(' tasksFromDB', tasksFromDB);
@@ -33,6 +36,8 @@ router.get('/task-list', (req, res, next) => {
   });
 });
 
+//Task details
+// /task-details/:taskId page
 router.get('/task-details/:taskId', (req, res, next) => {
   Task.findById(req.params.taskId)
     .then(taskFromDB => {
